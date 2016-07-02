@@ -53,6 +53,7 @@ function menu_attributes_menu_attribute_info() {
   $info['id'] = [
     'label' => t('ID'),
     'description' => t('Specifies a unique ID for the link.'),
+    'item_description' => t('Specifies a unique ID to be added to the item.'),
     'scope' => [MENU_ATTRIBUTES_LINK, MENU_ATTRIBUTES_ITEM],
   ];
   $info['name'] = [
@@ -67,11 +68,13 @@ function menu_attributes_menu_attribute_info() {
   $info['class'] = [
     'label' => t('Classes'),
     'description' => t('Enter additional classes to be added to the link.'),
+    'item_description' => t('Enter additional CSS class names to be added to the item.'),
     'scope' => [MENU_ATTRIBUTES_LINK, MENU_ATTRIBUTES_ITEM],
   ];
   $info['style'] = [
     'label' => t('Style'),
     'description' => t('Enter additional styles to be applied to the link.'),
+    'item_description' => t('Enter additional styles attribute to be applied to the item.'),
     'scope' => [MENU_ATTRIBUTES_LINK, MENU_ATTRIBUTES_ITEM],
   ];
   $info['target'] = [
@@ -215,6 +218,11 @@ function _menu_attributes_form_alter(array &$form, FormStateInterface $form_stat
     foreach ($info['scope'] as $group) {
       if (isset($menu_attributes[$group][$attribute])) {
         $info['form']['#default_value'] = $menu_attributes[$group][$attribute];
+      }
+
+      // If the item description is set, override the form description.
+      if ($group == MENU_ATTRIBUTES_ITEM && isset($info['item_description'])) {
+        $info['form']['#description'] = $info['item_description'];
       }
 
       $form['options'][$group][$attribute] = $info['form'] + [
