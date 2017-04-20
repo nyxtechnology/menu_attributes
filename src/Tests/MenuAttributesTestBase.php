@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\menu_attributes\Tests\MenuAttributesTestBase.
- */
 
 namespace Drupal\menu_attributes\Tests;
 
