@@ -308,7 +308,11 @@ function menu_attributes_preprocess_menu(&$variables) {
  */
 function menu_attributes_set_attributes($items) {
   foreach ($items as &$item) {
-    $menu_attributes = menu_attributes_get_attributes($item['original_link']);
+    $menu_attributes = [];
+    if (!empty($item['original_link'])) {
+      $menu_attributes = menu_attributes_get_attributes($item['original_link']);
+    }
+
     $menu_link_attributes = empty($menu_attributes[MENU_ATTRIBUTES_LINK]) ? []
       : array_filter($menu_attributes[MENU_ATTRIBUTES_LINK]);
     $menu_item_attributes = empty($menu_attributes[MENU_ATTRIBUTES_ITEM]) ? []
