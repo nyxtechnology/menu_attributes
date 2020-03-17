@@ -2,7 +2,6 @@
 
 namespace Drupal\menu_attributes\Form;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -60,7 +59,7 @@ class MenuAttributesSettingsForm extends ConfigFormBase {
       ];
       $form['attributes'][$attribute]['attribute_enable'] = [
         '#type' => 'checkbox',
-        '#title' => t('Enable the @attribute attribute.', ['@attribute' => Unicode::strtolower($info['label'])]),
+        '#title' => t('Enable the @attribute attribute.', ['@attribute' => mb_strtolower($info['label'])]),
         '#default_value' => $info['enabled'],
       ];
       $form['attributes'][$attribute]['attribute_default'] = [

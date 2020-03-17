@@ -7,12 +7,10 @@
  */
 
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Menu\MenuLinkInterface;
 use Drupal\Core\Render\Element;
-use Drupal\Core\Url;
 
 define('MENU_ATTRIBUTES_LINK', 'attributes');
 define('MENU_ATTRIBUTES_ITEM', 'item_attributes');
@@ -25,7 +23,7 @@ function menu_attributes_menu_link_content_presave(EntityInterface $entity) {
   if (isset($item['options']['attributes']) && is_array($item['options']['attributes'])) {
     // Filter out blank attributes.
     foreach ($item['options']['attributes'] as $key => $value) {
-      if ((is_array($value) && empty($value)) || is_string($value) && !Unicode::strlen($value)) {
+      if ((is_array($value) && empty($value)) || is_string($value) && !mb_strlen($value)) {
         unset($item['options']['attributes'][$key]);
       }
     }
@@ -362,7 +360,7 @@ function menu_attributes_get_attributes(MenuLinkInterface $menu_link_content_plu
   }
 
   list($entity_type, $uuid) = explode(':', $plugin_id, 2);
-  $entity = \Drupal::entityManager()->loadEntityByUuid($entity_type, $uuid);
+  $entity = \Drupal::service('entity.repository')->loadEntityByUuid($entity_type, $uuid);
 
   if ($entity) {
     $options = $entity->link->first()->options;
