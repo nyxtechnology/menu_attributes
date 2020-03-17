@@ -1,12 +1,12 @@
 attribute_enable:
-  title: true
-  id: true
-  name: true
-  rel: true
+  title: false
+  id: false
+  name: false
+  rel: false
   class: true
   style: false
-  target: true
-  accesskey: true
+  target: false
+  accesskey: false
 attribute_default:
   title: ''
   id: ''
